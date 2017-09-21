@@ -5,13 +5,13 @@ const alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P
 function createUserTable () {
 
   width = Number(document.getElementById("width").value);
-  if (width < 0)
-    width = 0;
+  if (width < 1)
+    width = 1;
   else if(width > alphabet.length)
     width = alphabet.length;
   height = Number(document.getElementById("height").value);
-  if (height < 0)
-    height = 0;
+  if (height < 1)
+    height = 1;
 
   createTable(width, height);
 
@@ -30,17 +30,35 @@ function createTable(width, height) {
     var divEle = document.getElementById("pixelsWall");
     divEle.appendChild(newTable);
 
-    for(var row=1; row<=height; row++){
+    for(var row=0; row<=height; row++){
       var newRow = document.createElement("tr");
       newRow.setAttribute("id","tr_" + row);
-      var tableEle = document.getElementById("table");
-      tableEle.appendChild(newRow);
+      newTable.appendChild(newRow);
+      if(row==0)
+      {
+        for(var col=0; col<=width; col++){
+          if(col==0)
+          {
+            var newHeader = document.createElement("th");
+            newRow.appendChild(newHeader);
+          }
+          else {
+            var newHeader = document.createElement("th");
+            newHeader.innerHTML = alphabet[col-1];
+            newRow.appendChild(newHeader);
+          }
+        }
+      }
+      else {
+        var newHeader = document.createElement("th");
+        newHeader.innerHTML = row;
+        newRow.appendChild(newHeader);
 
-      for(var col=0; col<width; col++){
-        var newCell = document.createElement("th");
-        newCell.setAttribute("id",alphabet[col] + row);
-        var rowEle = document.getElementById("tr_" + row);
-        rowEle.appendChild(newCell);
+        for(var col=0; col<width; col++){
+          var newCell = document.createElement("td");
+          newCell.setAttribute("id",alphabet[col] + row);
+          newRow.appendChild(newCell);
+        }
       }
     }
   }
