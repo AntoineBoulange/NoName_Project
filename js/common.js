@@ -164,7 +164,8 @@ function setGrpPixelColor () {
 
 function InterpretCommand() {
   var command = document.getElementById("command").value;
-
+  var tps  = document.getElementById("tps").value;
+  var color = document.getElementById("color").value;
   var commands = command.split(";");
 
   for( var i=0;i<commands.length;i++)
@@ -174,13 +175,13 @@ function InterpretCommand() {
     {
       for (var j = ExtractRow(cells[0]) ; j <= ExtractRow(cells[1]); j++) {
         for (var k = ConvertLetterToColumn(cells[0]); k <= ConvertLetterToColumn(cells[1]); k++) {
-          setPixelColorByCellName(alphabet[k]+j,2000,"#ffffff");
+          setPixelColorByCellName(alphabet[k]+j,tps,color);
         }
       }
     }
     else if(cells.length == 1)
     {
-      setPixelColorByCellName(cells[0],2000,"#ffffff");
+      setPixelColorByCellName(cells[0],tps,color);
     }
   }
 }
