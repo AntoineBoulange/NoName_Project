@@ -1,11 +1,14 @@
 var width;
 var height;
+const alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
 
 function createUserTable () {
 
   width = Number(document.getElementById("width").value);
   if (width < 0)
     width = 0;
+  else if(width > alphabet.length)
+    width = alphabet.length;
   height = Number(document.getElementById("height").value);
   if (height < 0)
     height = 0;
@@ -16,7 +19,7 @@ function createUserTable () {
   document.getElementById("height").value = "";
 }
 
-function createTable (width, height) {
+function createTable(width, height) {
   var oldTable = document.getElementById("table");
   if(oldTable !== null)
     oldTable.parentNode.removeChild(oldTable);
@@ -27,15 +30,15 @@ function createTable (width, height) {
     var divEle = document.getElementById("pixelsWall");
     divEle.appendChild(newTable);
 
-    for(var row=1; row<=width; row++){
+    for(var row=1; row<=height; row++){
       var newRow = document.createElement("tr");
       newRow.setAttribute("id","tr_" + row);
       var tableEle = document.getElementById("table");
       tableEle.appendChild(newRow);
 
-      for(var col=1; col<=height; col++){
+      for(var col=0; col<width; col++){
         var newCell = document.createElement("th");
-        newCell.setAttribute("id","px_" + row + "_" + col);
+        newCell.setAttribute("id",alphabet[col] + row);
         var rowEle = document.getElementById("tr_" + row);
         rowEle.appendChild(newCell);
       }
@@ -139,4 +142,55 @@ function setGrpPixelColor () {
   document.getElementById("colE").value = "";
   document.getElementById("colorG").value = "#ffffff";
   document.getElementById("tpsG").value = "";
+}
+
+function InterpretCommand() {
+  var command = document.getElementById("command").value;
+
+  var commands = command.split(";");
+
+  for( var i=0;i<commands.length;i++)
+  {
+    var cells = commands[i].split(":");
+    if(cells.length == 2)
+    {
+      for (var j = ExtractRow(cells[0]) ; j <= ExtractRow(cells[1]); j++) {
+        for (var k = ConvertLetterToColumn(cells[0]); k <= ConvertLetterToColumn(cells[1]); k++) {
+          setPixelColorByCellName(alphabet[k]+j,2000,"#ffffff");
+        }
+      }
+    }
+    else if(cells.length == 1)
+    {
+      setPixelColorByCellName(cells[0],2000,"#ffffff");
+    }
+  }
+}
+
+function ConvertLetterToColumn(cellName)
+{
+  var letter = cellName.substring(0,1);
+  var column = alphabet.findIndex(function(AlphabetLetter){ return letter==AlphabetLetter;});
+  if(column > width-1)
+    column = width-1;
+  return column;
+}
+
+function ExtractRow(cellName)
+{
+  var row = Number(cellName.substring(1,cellName.length));
+  if(row < 1 )
+    row = 1;
+  else if( row > height)
+    row = height;
+
+  return row;
+}
+
+function setPixelColorByCellName (cellName, tps, color) {
+  document.getElementById(cellName).style.backgroundColor = color;
+  setTimeout(resetPixelColorByCellName, tps, cellName);
+}
+function resetPixelColorByCellName (cellName) {
+    document.getElementById(cellName).style.backgroundColor = "black";
 }

@@ -16,9 +16,9 @@
       <h4 class="text-center">Changer la taille du mur</h4>
       <div class="input-group col-md-12 col-lg-12">
         <span class="input-group-addon" id="LTitle">Largeur</span>
-        <input type="number" class="form-control" aria-describedby="LTitle">
+        <input type="number" class="form-control" aria-describedby="LTitle" id="width">
         <span class="input-group-addon" id="HTitle">Hauteur</span>
-        <input type="number" class="form-control" aria-describedby="HTitle">
+        <input type="number" class="form-control" aria-describedby="HTitle" id="height">
         <span class="input-group-btn">
         <button class="btn btn-default" type="button" onclick="createUserTable()">Go!</button>
       </span>
@@ -41,6 +41,10 @@
         <p>Temps d'apparition (ms) : <input id="tpsG" type="number"></p>
       </form>
       <button type="button" onclick="setGrpPixelColor()">Changer la couleur d'un groupe de pixels</button>
+    </div>
+    <div class="">
+      <input type="text" name="command" id="command">
+      <button type="button" onclick="InterpretCommand()">Exécuter la commande</button>
     </div>
     </div>
     <br>
