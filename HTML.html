@@ -6,30 +6,30 @@
     <link rel="stylesheet" href="CSS.css" type="text/css">
   </head>
 
-  <body id="body" onload="createTable()">
+  <body id="body" onload="createTable(10,20)">
     <div id="debug"></div>
     <div>
       <form>
         <p>Largeur (nb de px) : <input id="width" type="number"></input></p>
         <p>Hauteur (nb de px) : <input id="height" type="number"></input></p>
       </form>
-      <button type="button" onclick="createTable()">Changer la taille du mur</button>
+      <button type="button" onclick="createUserTable()">Changer la taille du mur</button>
     </div>
     <div>
       <form>
         <p>Numéro de la ligne : <input id="row" type="number"></input></p>
         <p>Numéro de la colonne : <input id="col" type="number"></input></p>
-        <p>Couleur : <input id="color" type="color"></input></p>
+        <p>Couleur : <input id="color" type="color" value="#ffffff"></input></p>
         <p>Temps d'apparition (ms) : <input id="tps" type="number"></input></p>
       </form>
-      <button type="button" onclick="setPixelColor()">Changer la couleur d'un pixel</button>
+      <button type="button" onclick="setSimplePixelColor()">Changer la couleur d'un pixel</button>
     </div>
     <br>
     <div>
       <form>
         <p>De la ligne <input id="rowB" type="number"></input> à  la ligne <input id="rowE" type="number"></input></p>
         <p>De la colonne <input id="colB" type="number"></input> à  la colonne <input id="colE" type="number"></input></p>
-        <p>Couleur : <input id="colorG" type="color"></input></p>
+        <p>Couleur : <input id="colorG" type="color" value="#ffffff"></input></p>
         <p>Temps d'apparition (ms) : <input id="tpsG" type="number"></input></p>
       </form>
       <button type="button" onclick="setGrpPixelColor()">Changer la couleur d'un groupe de pixels</button>

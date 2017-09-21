@@ -1,7 +1,7 @@
 var width;
 var height;
 
-function createTable () {
+function createUserTable () {
 
   width = Number(document.getElementById("width").value);
   if (width < 0)
@@ -10,6 +10,13 @@ function createTable () {
   if (height < 0)
     height = 0;
 
+  createTable(width, height);
+
+  document.getElementById("width").value = "";
+  document.getElementById("height").value = "";
+}
+
+function createTable (width, height) {
   var oldTable = document.getElementById("table");
   if(oldTable !== null)
     oldTable.parentNode.removeChild(oldTable);
@@ -34,20 +41,30 @@ function createTable () {
       }
     }
   }
-
-  document.getElementById("width").value = "";
-  document.getElementById("height").value = "";
 }
 
 function resetPixelColor (row, col) {
   if((row !== 0) && (col !== 0))
-    document.getElementById("px_" + row + "_" + col).style.backgroundColor = "white";
+    document.getElementById("px_" + row + "_" + col).style.backgroundColor = "black";
 }
 
-function setPixelColor () {
+function setSimplePixelColor () {
   var row = Number(document.getElementById("row").value);
   var col = Number(document.getElementById("col").value);
   var tps = Number(document.getElementById("tps").value);
+  var color = document.getElementById("color").value;
+
+  setPixelColor(row , col, tps, color);
+
+
+
+  document.getElementById("row").value = "";
+  document.getElementById("col").value = "";
+  document.getElementById("color").value = "#ffffff";
+  document.getElementById("tps").value = "";
+}
+
+function setPixelColor (row , col, tps, color) {
 
   if(row > height){
     row = height;
@@ -56,33 +73,16 @@ function setPixelColor () {
   if(row < 0)
     row = 0;
 
-
   if(col > width)
     col = width;
+
   if(col < 0)
     col = 0;
-
-  var color = document.getElementById("color").value;
 
   if((row !== 0) && (col !== 0))
     document.getElementById("px_" + row + "_" + col).style.backgroundColor = color;
 
   setTimeout(resetPixelColor, tps, row, col);
-
-  document.getElementById("row").value = "";
-  document.getElementById("col").value = "";
-  document.getElementById("color").value = "";
-  document.getElementById("tps").value = "";
-}
-
-function resetGrpPixelColor (rowB, rowE, colB, colE) {
-  if((rowB !== 0) && (rowE !== 0) && (colB !== 0) && (colE !== 0)){
-    for(var row=rowB; row<=rowE; row++){
-      for(var col=colB; col<=colE; col++){
-        document.getElementById("px_" + row + "_" + col).style.backgroundColor = "white";
-      }
-    }
-  }
 }
 
 function setGrpPixelColor () {
@@ -128,17 +128,15 @@ function setGrpPixelColor () {
   if((rowB !== 0) && (rowE !== 0) && (colB !== 0) && (colE !== 0)){
     for(var row=rowB; row<=rowE; row++){
       for(var col=colB; col<=colE; col++){
-        document.getElementById("px_" + row + "_" + col).style.backgroundColor = color;
+        setPixelColor(row , col, tps, color);
       }
     }
   }
-
-  setTimeout(resetGrpPixelColor, tps, rowB, rowE, colB, colE);
 
   document.getElementById("rowB").value = "";
   document.getElementById("rowE").value = "";
   document.getElementById("colB").value = "";
   document.getElementById("colE").value = "";
-  document.getElementById("colorG").value = "";
+  document.getElementById("colorG").value = "#ffffff";
   document.getElementById("tpsG").value = "";
 }
