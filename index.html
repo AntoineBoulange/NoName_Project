@@ -10,40 +10,62 @@
     <script type="text/javascript" src="js/common.js"></script>
   </head>
 
-  <body id="body" onload="createTable(10,20)">
+  <body id="body" onload="createTable(10,13)">
     <div id="debug"></div>
     <div class="col-lg-4 col-md-4 instruction">
-      <h4 class="text-center">Changer la taille du mur</h4>
-      <div class="input-group col-md-12 col-lg-12">
-        <span class="input-group-addon" id="LTitle">Largeur</span>
-        <input type="number" class="form-control" aria-describedby="LTitle">
-        <span class="input-group-addon" id="HTitle">Hauteur</span>
-        <input type="number" class="form-control" aria-describedby="HTitle">
-        <span class="input-group-btn">
-        <button class="btn btn-default" type="button" onclick="createUserTable()">Go!</button>
-      </span>
+      <div class="jumbotron text-center"><h2>INSTRUCTION</h2></div>
+       <h5 class="text-center">Changer la taille du mur</h5>
+       <div class="input-group input-group-sm col-md-12 col-lg-12">
+         <span class="input-group-addon" id="LTitle">Largeur</span>
+         <input type="number" class="form-control" aria-describedby="LTitle" id="width">
+         <span class="input-group-addon" id="HTitle">Hauteur</span>
+         <input type="number" class="form-control" aria-describedby="HTitle" id="height">
+         <span class="input-group-btn">
+           <button class="btn btn-default" type="button" onclick="createUserTable()">Go!</button>
+         </span>
+       </div>
+      <h5 class="text-center">Changer la couleur d'un pixel</h5>
+      <div class="input-group input-group-sm col-md-12 col-lg-12">
+        <span class="input-group-addon" id="NLigne">N° Ligne</span>
+        <input type="number" class="form-control" aria-describedby="NLigne" id="row">
+        <span class="input-group-addon" id="Ncol">N° Col</span>
+        <input type="number" class="form-control" aria-describedby="Ncol" id="col">
       </div>
-    <div>
-      <form>
-        <p>Numéro de la ligne : <input id="row" type="number"></p>
-        <p>Numéro de la colonne : <input id="col" type="number"></p>
-        <p>Couleur : <input id="color" type="color" value="#ffffff"></p>
-        <p>Temps d'apparition (ms) : <input id="tps" type="number"></p>
-      </form>
-      <button type="button" onclick="setSimplePixelColor()">Changer la couleur d'un pixel</button>
+      <div class="input-group input-group-sm col-md-12 col-lg-12">
+        <span class="input-group-addon" id="TColor">Couleur</span>
+        <input type="color" class="form-control" aria-describedby="TColor" id="color" value="#ffffff">
+        <span class="input-group-addon" id="Time">Temps</span>
+        <input type="number" class="form-control" aria-describedby="Time" id="tps">
+        <span class="input-group-btn">
+           <button class="btn btn-default" type="button" onclick="setSimplePixelColor()">Go!</button>
+        </span>
+      </div>
+
+
+      <h5 class="text-center">Changer la couleur d'un groupe de pixel</h5>
+      <div class="input-group input-group-sm col-md-12 col-lg-12">
+        <span class="input-group-addon" id="StartL">De la ligne</span>
+        <input type="number" class="form-control" aria-describedby="StartL" id="rowB">
+        <span class="input-group-addon" id="StopL">à</span>
+        <input type="number" class="form-control" aria-describedby="StopL" id="rowE">
+      </div>
+      <div class="input-group input-group-sm col-md-12 col-lg-12">
+        <span class="input-group-addon" id="StartC">De la Colonne</span>
+        <input type="number" class="form-control" aria-describedby="StartC" id="colB">
+        <span class="input-group-addon" id="StopC">à</span>
+        <input type="number" class="form-control" aria-describedby="StopC" id="colE">
+      </div>
+      <div class="input-group input-group-sm col-md-12 col-lg-12">
+        <span class="input-group-addon" id="GroupC">Couleur</span>
+        <input type="color" class="form-control" aria-describedby="GroupC" id="colorG" value="#ffffff">
+        <span class="input-group-addon" id="GroupT">Temps</span>
+        <input type="number" class="form-control" aria-describedby="GroupT" id="tpsG">
+        <span class="input-group-btn">
+           <button class="btn btn-default" type="button" onclick="setGrpPixelColor()">Go!</button>
+        </span>
+      </div>
     </div>
     <br>
-    <div>
-      <form>
-        <p>De la ligne <input id="rowB" type="number"></input> à  la ligne <input id="rowE" type="number"></p>
-        <p>De la colonne <input id="colB" type="number"></input> à  la colonne <input id="colE" type="number"></p>
-        <p>Couleur : <input id="colorG" type="color" value="#ffffff"></p>
-        <p>Temps d'apparition (ms) : <input id="tpsG" type="number"></p>
-      </form>
-      <button type="button" onclick="setGrpPixelColor()">Changer la couleur d'un groupe de pixels</button>
-    </div>
-    </div>
-    <br>
-    <div id="pixelsWall"></div>
+    <div class="col-lg-8 col-md-8" id="pixelsWall"></div>
   </body>
 </html>
