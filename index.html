@@ -12,13 +12,17 @@
 
   <body id="body" onload="createTable()">
     <div id="debug"></div>
-    <div>
-      <form>
-        <p>Largeur (nb de px) : <input id="width" type="number"></input></p>
-        <p>Hauteur (nb de px) : <input id="height" type="number"></input></p>
-      </form>
-      <button type="button" onclick="createTable()">Changer la taille du mur</button>
-    </div>
+    <div class="col-lg-4 col-md-4 instruction">
+      <h4 class="text-center">Changer la taille du mur</h4>
+      <div class="input-group col-md-12 col-lg-12">
+        <span class="input-group-addon" id="LTitle">Largeur</span>
+        <input type="number" class="form-control" aria-describedby="LTitle">
+        <span class="input-group-addon" id="HTitle">Hauteur</span>
+        <input type="number" class="form-control" aria-describedby="HTitle">
+        <span class="input-group-btn">
+        <button class="btn btn-default" type="button" onclick="createTable()">Go!</button>
+      </span>
+      </div>
     <div>
       <form>
         <p>Numéro de la ligne : <input id="row" type="number"></input></p>
@@ -37,6 +41,7 @@
         <p>Temps d'apparition (ms) : <input id="tpsG" type="number"></input></p>
       </form>
       <button type="button" onclick="setGrpPixelColor()">Changer la couleur d'un groupe de pixels</button>
+    </div>
     </div>
     <br>
     <div id="pixelsWall"></div>
