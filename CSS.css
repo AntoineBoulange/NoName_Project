@@ -1,0 +1,9 @@
+th {
+  height: 50px;
+  width: 50px;
+  border: 1px solid grey;
+}
+
+table {
+  border-collapse: collapse;
+}
