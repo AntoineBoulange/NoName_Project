@@ -16,3 +16,7 @@ table {
 .instruction {
   padding-top: 30px;
 }
+
+.no-padding {
+  padding: 0;
+}
