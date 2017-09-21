@@ -10,7 +10,7 @@
     <script type="text/javascript" src="js/common.js"></script>
   </head>
 
-  <body id="body" onload="createTable()">
+  <body id="body" onload="createTable(10,20)">
     <div id="debug"></div>
     <div class="col-lg-4 col-md-4 instruction">
       <h4 class="text-center">Changer la taille du mur</h4>
@@ -20,25 +20,25 @@
         <span class="input-group-addon" id="HTitle">Hauteur</span>
         <input type="number" class="form-control" aria-describedby="HTitle">
         <span class="input-group-btn">
-        <button class="btn btn-default" type="button" onclick="createTable()">Go!</button>
+        <button class="btn btn-default" type="button" onclick="createUserTable()">Go!</button>
       </span>
       </div>
     <div>
       <form>
-        <p>Numéro de la ligne : <input id="row" type="number"></input></p>
-        <p>Numéro de la colonne : <input id="col" type="number"></input></p>
-        <p>Couleur : <input id="color" type="color"></input></p>
-        <p>Temps d'apparition (ms) : <input id="tps" type="number"></input></p>
+        <p>Numéro de la ligne : <input id="row" type="number"></p>
+        <p>Numéro de la colonne : <input id="col" type="number"></p>
+        <p>Couleur : <input id="color" type="color" value="#ffffff"></p>
+        <p>Temps d'apparition (ms) : <input id="tps" type="number"></p>
       </form>
-      <button type="button" onclick="setPixelColor()">Changer la couleur d'un pixel</button>
+      <button type="button" onclick="setSimplePixelColor()">Changer la couleur d'un pixel</button>
     </div>
     <br>
     <div>
       <form>
-        <p>De la ligne <input id="rowB" type="number"></input> à  la ligne <input id="rowE" type="number"></input></p>
-        <p>De la colonne <input id="colB" type="number"></input> à  la colonne <input id="colE" type="number"></input></p>
-        <p>Couleur : <input id="colorG" type="color"></input></p>
-        <p>Temps d'apparition (ms) : <input id="tpsG" type="number"></input></p>
+        <p>De la ligne <input id="rowB" type="number"></input> à  la ligne <input id="rowE" type="number"></p>
+        <p>De la colonne <input id="colB" type="number"></input> à  la colonne <input id="colE" type="number"></p>
+        <p>Couleur : <input id="colorG" type="color" value="#ffffff"></p>
+        <p>Temps d'apparition (ms) : <input id="tpsG" type="number"></p>
       </form>
       <button type="button" onclick="setGrpPixelColor()">Changer la couleur d'un groupe de pixels</button>
     </div>
