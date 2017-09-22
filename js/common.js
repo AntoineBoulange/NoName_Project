@@ -1,7 +1,18 @@
+//CLASS
+class Command {
+  constructor(id,command, tpsStart,tps,color) {
+    this.id=id;
+    this.command=command;
+    this.tpsStart=tpsStart;
+    this.tps=tps;
+    this.color=color;
+  }
+}
+
 var width;
 var height;
 const alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
-
+var COMMANDS = [];
 function createUserTable () {
 
   width = Number(document.getElementById("width").value);
@@ -162,11 +173,11 @@ function setGrpPixelColor () {
   document.getElementById("tpsG").value = "";
 }
 
-function InterpretCommand() {
-  var command = document.getElementById("command").value;
-  var tps  = document.getElementById("tps").value;
-  var color = document.getElementById("color").value;
-  var commands = command.split(";");
+function InterpretCommand(commandObject) {
+  // var command = document.getElementById("command").value;
+  // var tps  = document.getElementById("tps").value;
+  // var color = document.getElementById("color").value;
+  var commands = commandObject.command.split(";");
 
   for( var i=0;i<commands.length;i++)
   {
@@ -175,13 +186,13 @@ function InterpretCommand() {
     {
       for (var j = ExtractRow(cells[0]) ; j <= ExtractRow(cells[1]); j++) {
         for (var k = ConvertLetterToColumn(cells[0]); k <= ConvertLetterToColumn(cells[1]); k++) {
-          setPixelColorByCellName(alphabet[k]+j,tps,color);
+          setPixelColorByCellName(alphabet[k]+j,commandObject.tps,commandObject.color);
         }
       }
     }
     else if(cells.length == 1)
     {
-      setPixelColorByCellName(cells[0],tps,color);
+      setPixelColorByCellName(cells[0],commandObject.tps,commandObject.color);
     }
   }
 }
@@ -213,3 +224,104 @@ function setPixelColorByCellName (cellName, tps, color) {
 function resetPixelColorByCellName (cellName) {
     document.getElementById(cellName).style.backgroundColor = "black";
 }
+
+function addToScript()
+{
+  var command = document.getElementById("command").value;
+  var tps  = document.getElementById("tps").value;
+  var color = document.getElementById("color").value;
+  var id;
+  if(COMMANDS.length==0)
+    id=0;
+  else
+    id=COMMANDS[COMMANDS.length-1].id+1;
+
+  var newCommand = new Command(id,command,0,tps,color);
+  COMMANDS.push(newCommand);
+  loadScript();
+}
+
+  function loadScript(){
+    var oldScript = document.getElementById("script");
+    if(oldScript !== null)
+      oldScript.parentNode.removeChild(oldScript);
+    var newDivScript = document.createElement("div");
+    newDivScript.setAttribute("id","script");
+
+    for(var i = 0; i < COMMANDS.length; i++)
+    {
+      var newDiv = document.createElement("div");
+      newDiv.setAttribute("id",COMMANDS[i].id);
+      newDiv.setAttribute("class","commands");
+      newDiv.setAttribute("style","background-color:"+COMMANDS[i].color);
+      //Command
+      var sousDivCommand = document.createElement("div");
+      sousDivCommand.setAttribute("class","input-group input-group-sm col-md-12 col-lg-12");
+      sousDivCommand.innerHTML += "<span class=\"input-group-addon\">Selection</span>"
+      var newCommand = document.createElement("input");
+      newCommand.setAttribute("type","text");
+      newCommand.setAttribute("class","form-control");
+      newCommand.setAttribute("aria-describedby","NLigne");
+      newCommand.setAttribute("id","command" + COMMANDS[i].id);
+      newCommand.setAttribute("value",COMMANDS[i].command);
+      sousDivCommand.appendChild(newCommand);
+      newDiv.appendChild(sousDivCommand);
+      //Color
+      var sousDivCouleur = document.createElement("div");
+      sousDivCouleur.setAttribute("class","col-md-12 col-lg-12 no-padding");
+      var sousSousDivCouleur = document.createElement("div");
+      sousSousDivCouleur.setAttribute("class","input-group input-group-sm");
+      sousSousDivCouleur.innerHTML = "<span class=\"input-group-addon\" id=\"TColor" + COMMANDS[i].id + "\">Couleur</span>"
+      sousSousDivCouleur.innerHTML += "<input type=\"color\" class=\"form-control\" aria-describedby=\"TColor\" id=\"color" + COMMANDS[i].id +"\" value=\""+COMMANDS[i].color+"\">"
+      sousDivCouleur.appendChild(sousSousDivCouleur);
+      newDiv.appendChild(sousDivCouleur);
+      //TpsStart
+      var sousDivTpsStart = document.createElement("div");
+      sousDivTpsStart.setAttribute("class","col-md-6 col-lg-6 no-padding");
+      var sousSousDivTpsStart = document.createElement("div");
+      sousSousDivTpsStart.setAttribute("class","input-group input-group-sm");
+      sousSousDivTpsStart.innerHTML = "<span class=\"input-group-addon\" id=\"TimeStart" + COMMANDS[i].id + "\">Temps de départ (ms)</span>"
+      sousSousDivTpsStart.innerHTML += "<input type=\"number\" class=\"form-control\" aria-describedby=\"Time\" id=\"tpsStart" + COMMANDS[i].id +"\" value=\""+COMMANDS[i].tpsStart+"\">"
+      sousDivTpsStart.appendChild(sousSousDivTpsStart);
+      newDiv.appendChild(sousDivTpsStart);
+      //Tps
+      var sousDivTps = document.createElement("div");
+      sousDivTps.setAttribute("class","col-md-6 col-lg-6 no-padding");
+      var sousSousDivTps = document.createElement("div");
+      sousSousDivTps.setAttribute("class","input-group input-group-sm");
+      sousSousDivTps.innerHTML = "<span class=\"input-group-addon\" id=\"Time" + COMMANDS[i].id + "\">Durée d'allumage (ms)</span>"
+      sousSousDivTps.innerHTML += "<input type=\"number\" class=\"form-control\" aria-describedby=\"Time\" id=\"tps" + COMMANDS[i].id +"\" value=\""+COMMANDS[i].tps+"\">"
+      sousDivTps.appendChild(sousSousDivTps);
+      newDiv.appendChild(sousDivTps);
+
+      newDivScript.appendChild(newDiv);
+    }
+
+    if(COMMANDS.length!==0)
+    {
+      newDivScript.innerHTML += "<button class=\"btn btn-default\" type=\"button\" onclick=\"StartSimulation()\">Tester</button>";
+    }
+
+    document.getElementById("containerScript").appendChild(newDivScript);
+
+
+  }
+
+  function StartSimulation()
+  {
+    for(var i=0;i<COMMANDS.length;i++)
+    {
+      COMMANDS[i].command = document.getElementById("command"+i).value;
+      COMMANDS[i].color = document.getElementById("color"+i).value;
+      COMMANDS[i].tpsStart = Number(document.getElementById("tpsStart"+i).value);
+      COMMANDS[i].tps = Number(document.getElementById("tps"+i).value);
+
+      if(COMMANDS[i].tpsStart!==0)
+      {
+        setTimeout(InterpretCommand, Number(COMMANDS[i].tpsStart)+250, COMMANDS[i]);
+      }
+      else {
+        InterpretCommand(COMMANDS[i]);
+      }
+    }
+  }
